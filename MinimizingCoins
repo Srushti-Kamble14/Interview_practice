@@ -1,0 +1,71 @@
+*MINIMIZING COINS*
+
+/*
+REACT
+
+1) R - Repeat
+. In this ques the given is n(number of coins), x(sum of money) and coins(array of coins present) 
+. we have to find the minimum number coins required to produce the value x if not present then return -1
+. we can take the coins infinite number of times.
+
+2) E - Example
+
+Suppose n=3 , x=11 and coins=[1,5,7]
+
+if we take 1st coin and find combinations using it then it will be
+1+1+1+1+1+1+1+1+1+1+1 = 11 (number of coins = 11)
+if we take 1st and 2nd coin then possibilty is 
+1+1+1+1+1+1+5 =11 (number of coins = 7)
+if we take 1st and 3rd coin then possibilty is 
+1+1+1+1+7 =11 (number of coins = 5)
+1+5+5 =11 (number of coins = 3)
+
+hence the minimum number of coins will be 3
+
+3) A - Algorithm
+
+. here we maintain two variable to find which coin to be pick and not pick
+. the notPick variable will not pick the coin and move to next index
+. the pick variable pick the currrent coin only when it is less than the x
+. if coin picked then we will substract the value from x
+. we do this process recursively until then x becomes 0 
+. if no possibility match it will return -1 if match it will return coins to be picked
+
+4) C- Code
+#include<bits/stdc++.h>
+using namespace std;
+
+int minimizingCoins(int idx,int n,vector<int>&a,int x){
+    if(x==0) return 0;
+    if(idx==n) return INT_MAX;
+
+    //notpick
+    int notpick=minimizingCoins(idx+1,n,a,x);
+
+    //pick
+    int pick=INT_MAX;
+    if(a[idx]<=x){
+        int cnt=minimizingCoins(idx,n,a,x-a[idx]);
+        if(cnt!=INT_MAX) pick=1+cnt;
+    }
+
+    return min(pick,notpick);
+}
+
+int main(){
+    int n,x;
+    cin>>n>>x;
+    vector<int>a(n);
+    for(int i=0;i<n;i++) cin>>a[i];
+
+
+    int mini=minimizingCoins(0,n,a,x);
+    if(mini==INT_MAX) cout<<-1;
+    else cout<<mini;
+}
+
+T - Testcase
+TIME LIMIT EXCEEDED 
+
+
+*/
