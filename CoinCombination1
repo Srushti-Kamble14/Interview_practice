@@ -1,0 +1,71 @@
+*Coin Combination 1*
+
+/*
+REACT
+
+1) R - Repeat
+. In this ques the given is n(number of coins), x(sum of money) and coins(array of coins present) 
+. we have to find the number of ways to produce the value x 
+. we can take the coins infinite number of times.
+
+2) E - Example
+
+Suppose n=3 , x=9 and coins=[2,3,5]
+
+if we take 1st and 2nd coin then possibilty is 
+2+2+2+3 
+2+2+3+2
+2+3+2+2
+3+2+2+2
+(there are four ways)
+
+if we take 1st and 3rd coin then possibilty is 
+2+2+5
+2+5+2
+5+2+2
+(there are three ways) 
+
+if we take 3rd coin then possibilty is 
+3+3+3
+(there is only one way)
+
+--> TOTAL WAYS = 8
+
+3) A - Algorithm
+
+. here we maintain howManyWays variable to find how many ways 
+. we wil iterate on array elements to find out the possible ways
+. the value is considered only if it is less than the x
+. if coin picked then we will substract the value from x
+. we do this process recursively until then x becomes 0 and increment howManyWays
+. at the end we will return the number of ways
+
+4) C- Code
+#include<bits/stdc++.h>
+using namespace std;
+
+int CoinCombination(int n,int x,vector<int>&value){
+    if(x==0) return 1;
+
+    int pick=0;
+    for(int i=0;i<n;i++){
+        if(value[i]<=x)
+        pick+=CoinCombination(n,x-value[i],value);
+    }
+    return pick;
+}
+
+int main(){
+    int n,x;
+    cin>>n>>x;
+    vector<int>value(n);
+    for(int i=0;i<n;i++) cin>>value[i];
+
+    cout<<CoinCombination(n,x,value);
+}
+
+T - Testcase
+TIME LIMIT EXCEEDED 
+
+
+*/
