@@ -1,0 +1,64 @@
+** Remove digits **
+
+/*
+REACT
+
+1) R - Repeat
+. In this ques the given is n(integer)
+. we have to find the minimum numberof steps of make that n equal to 0
+
+2) E - Example
+
+Suppose n=54 ,
+
+if we do 54-5 = 49 cnt=1
+if we do 49-9 = 40 cnt=2
+if we do 40-4 = 36 cnt=3
+if we do 36-6 = 30 cnt=4
+if we do 30-3 = 27 cnt=5
+if we do 27-7 = 20 cnt=6
+if we do 20-2 = 18 cnt=7
+if we do 18-8 = 10 cnt=8
+if we do 10-1 = 9 cnt=9
+if we do 9-9 = 0 cnt=10
+
+hence the minimum number of steps will be 10
+
+3) A - Algorithm
+
+. here we maintain removeDigits function which will take n repeatedly
+. another function maxiDig which take n seprate the dig find the maximum among them and return the value to removeDigit
+. the removeDigit take the value substract it from n and gave back to maxDig
+. this process continues till n becomes 0
+. once n become 0 we will return the minnumber of ways
+
+4) C- Code
+#include<bits/stdc++.h>
+using namespace std;
+
+int maxidig(int n){
+  vector<int>ans;
+  while(n>0){
+    int rem=n%10;
+    ans.push_back(rem);
+    n/=10;
+  }
+  int maxi=*max_element(ans.begin(),ans.end());
+  return maxi;
+}
+
+int RemoveDigits(int n){
+  if(n==0) return 0;
+return 1+RemoveDigits(n-maxidig(n));
+}
+int main(){
+    int n;
+    cin>>n;
+    cout<<RemoveDigits(n);
+}
+
+T - Testcase
+ACCEPTED
+
+
+*/
